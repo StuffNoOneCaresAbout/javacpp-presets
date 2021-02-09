@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.bytedeco</groupId>
   <artifactId>javacpp-presets</artifactId>
@@ -58,10 +57,10 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <javacpp.cppbuild.skip>false</javacpp.cppbuild.skip> <!-- To skip execution of cppbuild.sh: -Djavacpp.cppbuild.skip=true -->
-    <javacpp.parser.skip>false</javacpp.parser.skip>     <!-- To skip header file parsing phase: -Djavacpp.parser.skip=true  -->
+    <javacpp.parser.skip>false</javacpp.parser.skip> <!-- To skip header file parsing phase: -Djavacpp.parser.skip=true  -->
     <javacpp.compiler.skip>false</javacpp.compiler.skip> <!-- To skip native compilation phase: -Djavacpp.compiler.skip=true -->
     <javacpp.moduleId>${project.artifactId}</javacpp.moduleId>
-    <javacpp.nativeRequires/>
+    <javacpp.nativeRequires />
     <javacpp.packageName>${project.artifactId}</javacpp.packageName>
     <javacpp.platform.nativeOutputPath>org/bytedeco/${javacpp.packageName}/${javacpp.platform}${javacpp.platform.extension}</javacpp.platform.nativeOutputPath>
     <javacpp.platform.root></javacpp.platform.root>
@@ -126,329 +125,329 @@
   <build>
     <finalName>${project.artifactId}</finalName>
     <pluginManagement>
-    <plugins>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <id>javacpp-parser</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>resources</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-        <executions>
-          <execution>
-            <id>default-compile</id>
-          </execution>
-          <execution>
-            <id>javacpp-parser</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <configuration>
-              <includes>
-                <include>org/bytedeco/${javacpp.packageName}/presets/*.java</include>
-              </includes>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.bytedeco</groupId>
-        <artifactId>javacpp</artifactId>
-        <version>${project.parent.version}</version>
-        <configuration>
-          <properties>${javacpp.platform.properties}</properties>
-          <propertyKeysAndValues>
-            <property>
-              <name>platform.root</name>
-              <value>${javacpp.platform.root}</value>
-            </property>
-            <property>
-              <name>platform.compiler</name>
-              <value>${javacpp.platform.compiler}</value>
-            </property>
-            <property>
-              <name>platform.extension</name>
-              <value>${javacpp.platform.extension}</value>
-            </property>
-          </propertyKeysAndValues>
-          <classPath>${project.build.outputDirectory}</classPath>
-          <includePaths>
-            <includePath>${basedir}/cppbuild/${javacpp.platform}${javacpp.platform.extension}/include/</includePath>
-            <includePath>${basedir}/target/classes/org/bytedeco/${javacpp.packageName}/include/</includePath>
-          </includePaths>
-          <linkPaths>
-            <linkPath>${basedir}/cppbuild/${javacpp.platform}${javacpp.platform.extension}/lib/</linkPath>
-          </linkPaths>
-          <preloadPath>${basedir}/cppbuild/${javacpp.platform}${javacpp.platform.extension}/bin/</preloadPath>
-          <resourcePaths>
-            <resourcePath>${basedir}/cppbuild/${javacpp.platform}${javacpp.platform.extension}/</resourcePath>
-            <resourcePath>${basedir}/target/classes/org/bytedeco/${javacpp.packageName}/</resourcePath>
-          </resourcePaths>
-          <executablePaths>
-            <executablePath>${basedir}/cppbuild/${javacpp.platform}${javacpp.platform.extension}/bin/</executablePath>
-          </executablePaths>
-          <buildResources>
-            <buildResource>/${javacpp.platform.library.path}/</buildResource>
-            <buildResource>/org/bytedeco/javacpp/${javacpp.platform}${javacpp.platform.extension}/</buildResource>
-            <buildResource>/org/bytedeco/javacpp/${javacpp.platform}/</buildResource>
-          </buildResources>
-          <includeResources>
-            <includeResource>/${javacpp.platform.library.path}/include/</includeResource>
-            <includeResource>/org/bytedeco/javacpp/include/</includeResource>
-            <includeResource>/org/bytedeco/javacpp/${javacpp.platform}${javacpp.platform.extension}/include/</includeResource>
-            <includeResource>/org/bytedeco/javacpp/${javacpp.platform}/include/</includeResource>
-          </includeResources>
-          <linkResources>
-            <linkResource>/${javacpp.platform.library.path}/</linkResource>
-            <linkResource>/${javacpp.platform.library.path}/lib/</linkResource>
-            <linkResource>/org/bytedeco/javacpp/${javacpp.platform}${javacpp.platform.extension}/</linkResource>
-            <linkResource>/org/bytedeco/javacpp/${javacpp.platform}${javacpp.platform.extension}/lib/</linkResource>
-            <linkResource>/org/bytedeco/javacpp/${javacpp.platform}/</linkResource>
-            <linkResource>/org/bytedeco/javacpp/${javacpp.platform}/lib/</linkResource>
-          </linkResources>
-        </configuration>
-        <executions>
-          <execution>
-            <id>javacpp-validate</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>build</goal>
-            </goals>
-            <configuration>
-              <targetDirectories>
-                <targetDirectory>${project.basedir}/src/gen/java</targetDirectory>
-                <targetDirectory>${project.basedir}/cppbuild/${javacpp.platform}${javacpp.platform.extension}/java/</targetDirectory>
-              </targetDirectories>
-            </configuration>
-          </execution>
-          <execution>
-            <id>javacpp-cppbuild-install</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>build</goal>
-            </goals>
-            <configuration>
-              <skip>${javacpp.cppbuild.skip}</skip>
-              <buildCommand>
-                <program>bash</program>
-                <argument>${project.basedir}/../cppbuild.sh</argument>
-                <argument>install</argument>
-                <argument>${javacpp.moduleId}</argument>
-                <argument>-platform=${javacpp.platform}</argument>
-                <argument>-extension=${javacpp.platform.extension}</argument>
-              </buildCommand>
-              <environmentVariables>
-                <ANDROID_NDK>${javacpp.platform.root}</ANDROID_NDK>
-              </environmentVariables>
-              <workingDirectory>${project.basedir}/..</workingDirectory>
-            </configuration>
-          </execution>
-          <execution>
-            <id>javacpp-cppbuild-clean</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>build</goal>
-            </goals>
-            <configuration>
-              <skip>${javacpp.cppbuild.skip}</skip>
-              <buildCommand>
-                <program>bash</program>
-                <argument>${project.basedir}/../cppbuild.sh</argument>
-                <argument>clean</argument>
-                <argument>${javacpp.moduleId}</argument>
-              </buildCommand>
-              <workingDirectory>${project.basedir}/..</workingDirectory>
-            </configuration>
-          </execution>
-          <execution>
-            <id>javacpp-parser</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>parse</goal>
-            </goals>
-            <configuration>
-              <skip>${javacpp.parser.skip}</skip>
-              <outputDirectory>${project.basedir}/src/gen/java</outputDirectory>
-              <classOrPackageName>org.bytedeco.${javacpp.packageName}.presets.*</classOrPackageName>
-            </configuration>
-          </execution>
-          <execution>
-            <id>javacpp-compiler</id>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>build</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/native/${javacpp.platform.nativeOutputPath}</outputDirectory>
-              <skip>${javacpp.compiler.skip}</skip>
-              <classOrPackageName>org.bytedeco.${javacpp.packageName}.**</classOrPackageName>
-              <copyLibs>true</copyLibs>
-              <copyResources>true</copyResources>
-              <configDirectory>${project.build.directory}/native/META-INF/native-image/${javacpp.platform}${javacpp.platform.extension}/</configDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <id>default-jar</id>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <configuration>
-              <archive>
-<!--                <manifest>                          -->
-<!--                  <addClasspath>true</addClasspath> -->
-<!--                </manifest>                         -->
-                <manifestEntries>
-                  <!-- <addClasspath/> is broken: http://jira.codehaus.org/browse/MJAR-61 -->
-                  <Class-Path>javacpp.jar</Class-Path>
-                  <Implementation-Title>${project.name}</Implementation-Title>
-                  <Implementation-Vendor>Bytedeco</Implementation-Vendor>
-                  <Implementation-Version>${project.version}</Implementation-Version>
-                  <Specification-Title>${project.name}</Specification-Title>
-                  <Specification-Vendor>Bytedeco</Specification-Vendor>
-                  <Specification-Version>${project.version}</Specification-Version>
-                  <Multi-Release>true</Multi-Release>
-                </manifestEntries>
-              </archive>
-              <includes>
-                <include>org/bytedeco/${javacpp.packageName}/**</include>
-              </includes>
-              <excludes>
-                <exclude>org/bytedeco/${javacpp.packageName}/include/</exclude>
-              </excludes>
-            </configuration>
-          </execution>
-          <execution>
-            <id>javacpp-${javacpp.platform}${javacpp.platform.extension}</id>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <configuration>
-              <classifier>${javacpp.platform}${javacpp.platform.extension}</classifier>
-              <skipIfEmpty>true</skipIfEmpty>
-              <includes> 
-                <!-- In case of successive builds for multiple platforms
+      <plugins>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.1.0</version>
+          <executions>
+            <execution>
+              <id>javacpp-parser</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>resources</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+          <configuration>
+            <source>1.7</source>
+            <target>1.7</target>
+          </configuration>
+          <executions>
+            <execution>
+              <id>default-compile</id>
+            </execution>
+            <execution>
+              <id>javacpp-parser</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+              <configuration>
+                <includes>
+                  <include>org/bytedeco/${javacpp.packageName}/presets/*.java</include>
+                </includes>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.bytedeco</groupId>
+          <artifactId>javacpp</artifactId>
+          <version>${project.parent.version}</version>
+          <configuration>
+            <properties>${javacpp.platform.properties}</properties>
+            <propertyKeysAndValues>
+              <property>
+                <name>platform.root</name>
+                <value>${javacpp.platform.root}</value>
+              </property>
+              <property>
+                <name>platform.compiler</name>
+                <value>${javacpp.platform.compiler}</value>
+              </property>
+              <propertyKeysAndValues>
+                <name>platform.extension</name>
+                <value>${javacpp.platform.extension}</value>
+              </propertyKeysAndValues>
+            </propertyKeysAndValues>
+            <classPath>${project.build.outputDirectory}</classPath>
+            <includePaths>
+              <includePath>${basedir}/cppbuild/${javacpp.platform}${javacpp.platform.extension}/include/</includePath>
+              <includePath>${basedir}/target/classes/org/bytedeco/${javacpp.packageName}/include/</includePath>
+            </includePaths>
+            <linkPaths>
+              <linkPath>${basedir}/cppbuild/${javacpp.platform}${javacpp.platform.extension}/lib/</linkPath>
+            </linkPaths>
+            <preloadPath>${basedir}/cppbuild/${javacpp.platform}${javacpp.platform.extension}/bin/</preloadPath>
+            <resourcePaths>
+              <resourcePath>${basedir}/cppbuild/${javacpp.platform}${javacpp.platform.extension}/</resourcePath>
+              <resourcePath>${basedir}/target/classes/org/bytedeco/${javacpp.packageName}/</resourcePath>
+            </resourcePaths>
+            <executablePaths>
+              <executablePath>${basedir}/cppbuild/${javacpp.platform}${javacpp.platform.extension}/bin/</executablePath>
+            </executablePaths>
+            <buildResources>
+              <buildResource>/${javacpp.platform.library.path}/</buildResource>
+              <buildResource>/org/bytedeco/javacpp/${javacpp.platform}${javacpp.platform.extension}/</buildResource>
+              <buildResource>/org/bytedeco/javacpp/${javacpp.platform}/</buildResource>
+            </buildResources>
+            <includeResources>
+              <includeResource>/${javacpp.platform.library.path}/include/</includeResource>
+              <includeResource>/org/bytedeco/javacpp/include/</includeResource>
+              <includeResource>/org/bytedeco/javacpp/${javacpp.platform}${javacpp.platform.extension}/include/</includeResource>
+              <includeResource>/org/bytedeco/javacpp/${javacpp.platform}/include/</includeResource>
+            </includeResources>
+            <linkResources>
+              <linkResource>/${javacpp.platform.library.path}/</linkResource>
+              <linkResource>/${javacpp.platform.library.path}/lib/</linkResource>
+              <linkResource>/org/bytedeco/javacpp/${javacpp.platform}${javacpp.platform.extension}/</linkResource>
+              <linkResource>/org/bytedeco/javacpp/${javacpp.platform}${javacpp.platform.extension}/lib/</linkResource>
+              <linkResource>/org/bytedeco/javacpp/${javacpp.platform}/</linkResource>
+              <linkResource>/org/bytedeco/javacpp/${javacpp.platform}/lib/</linkResource>
+            </linkResources>
+          </configuration>
+          <executions>
+            <execution>
+              <id>javacpp-validate</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>build</goal>
+              </goals>
+              <configuration>
+                <targetDirectories>
+                  <targetDirectory>${project.basedir}/src/gen/java</targetDirectory>
+                  <targetDirectory>${project.basedir}/cppbuild/${javacpp.platform}${javacpp.platform.extension}/java/</targetDirectory>
+                </targetDirectories>
+              </configuration>
+            </execution>
+            <execution>
+              <id>javacpp-cppbuild-install</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>build</goal>
+              </goals>
+              <configuration>
+                <skip>${javacpp.cppbuild.skip}</skip>
+                <buildCommand>
+                  <program>bash</program>
+                  <argument>${project.basedir}/../cppbuild.sh</argument>
+                  <argument>install</argument>
+                  <argument>${javacpp.moduleId}</argument>
+                  <argument>-platform=${javacpp.platform}</argument>
+                  <argument>-extension=${javacpp.platform.extension}</argument>
+                </buildCommand>
+                <environmentVariables>
+                  <ANDROID_NDK>${javacpp.platform.root}</ANDROID_NDK>
+                </environmentVariables>
+                <workingDirectory>${project.basedir}/..</workingDirectory>
+              </configuration>
+            </execution>
+            <execution>
+              <id>javacpp-cppbuild-clean</id>
+              <phase>clean</phase>
+              <goals>
+                <goal>build</goal>
+              </goals>
+              <configuration>
+                <skip>${javacpp.cppbuild.skip}</skip>
+                <buildCommand>
+                  <program>bash</program>
+                  <argument>${project.basedir}/../cppbuild.sh</argument>
+                  <argument>clean</argument>
+                  <argument>${javacpp.moduleId}</argument>
+                </buildCommand>
+                <workingDirectory>${project.basedir}/..</workingDirectory>
+              </configuration>
+            </execution>
+            <execution>
+              <id>javacpp-parser</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>parse</goal>
+              </goals>
+              <configuration>
+                <skip>${javacpp.parser.skip}</skip>
+                <outputDirectory>${project.basedir}/src/gen/java</outputDirectory>
+                <classOrPackageName>org.bytedeco.${javacpp.packageName}.presets.*</classOrPackageName>
+              </configuration>
+            </execution>
+            <execution>
+              <id>javacpp-compiler</id>
+              <phase>process-classes</phase>
+              <goals>
+                <goal>build</goal>
+              </goals>
+              <configuration>
+                <outputDirectory>${project.build.directory}/native/${javacpp.platform.nativeOutputPath}</outputDirectory>
+                <skip>${javacpp.compiler.skip}</skip>
+                <classOrPackageName>org.bytedeco.${javacpp.packageName}.**</classOrPackageName>
+                <copyLibs>true</copyLibs>
+                <copyResources>true</copyResources>
+                <configDirectory>${project.build.directory}/native/META-INF/native-image/${javacpp.platform}${javacpp.platform.extension}/</configDirectory>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.1.0</version>
+          <executions>
+            <execution>
+              <id>default-jar</id>
+              <phase>package</phase>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+              <configuration>
+                <archive>
+                  <!--                <manifest>                          -->
+                  <!--                  <addClasspath>true</addClasspath> -->
+                  <!--                </manifest>                         -->
+                  <manifestEntries>
+                    <!-- <addClasspath/> is broken: http://jira.codehaus.org/browse/MJAR-61 -->
+                    <Class-Path>javacpp.jar</Class-Path>
+                    <Implementation-Title>${project.name}</Implementation-Title>
+                    <Implementation-Vendor>Bytedeco</Implementation-Vendor>
+                    <Implementation-Version>${project.version}</Implementation-Version>
+                    <Specification-Title>${project.name}</Specification-Title>
+                    <Specification-Vendor>Bytedeco</Specification-Vendor>
+                    <Specification-Version>${project.version}</Specification-Version>
+                    <Multi-Release>true</Multi-Release>
+                  </manifestEntries>
+                </archive>
+                <includes>
+                  <include>org/bytedeco/${javacpp.packageName}/**</include>
+                </includes>
+                <excludes>
+                  <exclude>org/bytedeco/${javacpp.packageName}/include/</exclude>
+                </excludes>
+              </configuration>
+            </execution>
+            <execution>
+              <id>javacpp-${javacpp.platform}${javacpp.platform.extension}</id>
+              <phase>package</phase>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+              <configuration>
+                <classifier>${javacpp.platform}${javacpp.platform.extension}</classifier>
+                <skipIfEmpty>true</skipIfEmpty>
+                <includes>
+                  <!-- In case of successive builds for multiple platforms
                      without cleaning, ensures we only include files for
                      this platform. -->
-                <include>${javacpp.platform.nativeOutputPath}/</include>
-                <include>META-INF/native-image/${javacpp.platform}${javacpp.platform.extension}/</include>
-              </includes>
-              <archive>
-                <manifestEntries>
-                  <Multi-Release>true</Multi-Release>
-                </manifestEntries>
-              </archive>
-              <classesDirectory>${project.build.directory}/native</classesDirectory>
-              <excludes>
-                <exclude>org/bytedeco/${javacpp.packageName}/windows-*/*.exp</exclude>
-                <exclude>org/bytedeco/${javacpp.packageName}/windows-*/*.lib</exclude>
-                <exclude>org/bytedeco/${javacpp.packageName}/windows-*/*.obj</exclude>
-              </excludes>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.moditect</groupId>
-        <artifactId>moditect-maven-plugin</artifactId>
-        <version>1.0.0.RC1</version>
-        <configuration>
-          <jvmVersion>9</jvmVersion>
-          <overwriteExistingFiles>true</overwriteExistingFiles>
-          <outputDirectory>${project.build.directory}</outputDirectory>
-        </configuration>
-        <executions>
-          <execution>
-            <id>add-module-infos</id>
-            <phase>package</phase>
-            <goals>
-              <goal>add-module-info</goal>
-            </goals>
-            <configuration>
-              <modules>
-                <module>
-                  <file>${project.build.directory}/${project.artifactId}.jar</file>
-                  <moduleInfoFile>${project.basedir}/src/main/java9/module-info.java</moduleInfoFile>
-                </module>
-                <module>
-                  <file>${project.build.directory}/${project.artifactId}-${javacpp.platform}${javacpp.platform.extension}.jar</file>
-                  <moduleInfoSource>
+                  <include>${javacpp.platform.nativeOutputPath}/</include>
+                  <include>META-INF/native-image/${javacpp.platform}${javacpp.platform.extension}/</include>
+                </includes>
+                <archive>
+                  <manifestEntries>
+                    <Multi-Release>true</Multi-Release>
+                  </manifestEntries>
+                </archive>
+                <classesDirectory>${project.build.directory}/native</classesDirectory>
+                <excludes>
+                  <exclude>org/bytedeco/${javacpp.packageName}/windows-*/*.exp</exclude>
+                  <exclude>org/bytedeco/${javacpp.packageName}/windows-*/*.lib</exclude>
+                  <exclude>org/bytedeco/${javacpp.packageName}/windows-*/*.obj</exclude>
+                </excludes>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.moditect</groupId>
+          <artifactId>moditect-maven-plugin</artifactId>
+          <version>1.0.0.RC1</version>
+          <configuration>
+            <jvmVersion>9</jvmVersion>
+            <overwriteExistingFiles>true</overwriteExistingFiles>
+            <outputDirectory>${project.build.directory}</outputDirectory>
+          </configuration>
+          <executions>
+            <execution>
+              <id>add-module-infos</id>
+              <phase>package</phase>
+              <goals>
+                <goal>add-module-info</goal>
+              </goals>
+              <configuration>
+                <modules>
+                  <module>
+                    <file>${project.build.directory}/${project.artifactId}.jar</file>
+                    <moduleInfoFile>${project.basedir}/src/main/java9/module-info.java</moduleInfoFile>
+                  </module>
+                  <module>
+                    <file>${project.build.directory}/${project.artifactId}-${javacpp.platform}${javacpp.platform.extension}.jar</file>
+                    <moduleInfoSource>
                     open module org.bytedeco.${javacpp.packageName}.${javacpp.platform.module} {
                       requires transitive org.bytedeco.${javacpp.packageName};
                       requires org.bytedeco.javacpp.${javacpp.platform.module};
                       ${javacpp.nativeRequires}
                     }
                   </moduleInfoSource>
-                </module>
-              </modules>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-install-plugin</artifactId>
-        <version>2.5.2</version>
-        <configuration>
-          <createChecksum>true</createChecksum>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>3.0.1</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>leave-disabled-to-not-generate-sources-twice-on-release</phase>
-          </execution>
-          <execution>
-            <id>attach-source</id>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.0.1</version>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <configuration>
-              <minmemory>256m</minmemory>
-              <maxmemory>2048m</maxmemory>
-              <links>
-                <link>http://bytedeco.org/javacpp/apidocs</link>
-              </links>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
+                  </module>
+                </modules>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+          <configuration>
+            <createChecksum>true</createChecksum>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>3.0.1</version>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <phase>leave-disabled-to-not-generate-sources-twice-on-release</phase>
+            </execution>
+            <execution>
+              <id>attach-source</id>
+              <goals>
+                <goal>jar-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.0.1</version>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+              <configuration>
+                <minmemory>256m</minmemory>
+                <maxmemory>2048m</maxmemory>
+                <links>
+                  <link>http://bytedeco.org/javacpp/apidocs</link>
+                </links>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
     </pluginManagement>
 
     <plugins>
@@ -480,7 +479,7 @@
         <configuration>
           <serverId>sonatype-nexus-staging</serverId>
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-<!--          <skipLocalStaging>true</skipLocalStaging> -->
+          <!--          <skipLocalStaging>true</skipLocalStaging> -->
           <skipStagingRepositoryClose>true</skipStagingRepositoryClose>
         </configuration>
       </plugin>
@@ -607,6 +606,7 @@
         <module>scipy</module>
         <module>gym</module>
         <module>llvm</module>
+        <module>lsquic</module>
         <module>libpostal</module>
         <module>leptonica</module>
         <module>tesseract</module>
@@ -1096,6 +1096,7 @@
         <module>scipy</module>
         <module>gym</module>
         <module>llvm</module>
+        <module>lsquic</module>
         <module>leptonica</module>
         <module>tesseract</module>
         <module>cpu_features</module>
@@ -1152,6 +1153,7 @@
         <module>scipy</module>
         <module>gym</module>
         <module>llvm</module>
+        <module>lsquic</module>
         <module>leptonica</module>
         <module>tesseract</module>
         <module>cpu_features</module>
@@ -1205,6 +1207,7 @@
         <module>scipy</module>
         <module>gym</module>
         <module>llvm</module>
+        <module>lsquic</module>
         <module>leptonica</module>
         <module>tesseract</module>
         <module>cuda</module>
@@ -1264,6 +1267,7 @@
         <module>scipy</module>
         <module>gym</module>
         <module>llvm</module>
+        <module>lsquic</module>
         <module>leptonica</module>
         <module>tesseract</module>
         <module>caffe</module>
@@ -1332,6 +1336,7 @@
         <module>scipy</module>
         <module>gym</module>
         <module>llvm</module>
+        <module>lsquic</module>
         <module>libpostal</module>
         <module>leptonica</module>
         <module>tesseract</module>
@@ -1408,12 +1413,13 @@
         <module>scipy</module>
         <module>gym</module>
         <module>llvm</module>
+        <module>lsquic</module>
         <module>libpostal</module>
         <module>leptonica</module>
         <module>tesseract</module>
         <module>caffe</module>
         <module>openpose</module>
-<!--        <module>cuda</module>-->
+        <!--        <module>cuda</module>-->
         <module>opencl</module>
         <module>mxnet</module>
         <module>tensorflow</module>
@@ -1482,6 +1488,7 @@
         <module>scipy</module>
         <module>gym</module>
         <module>llvm</module>
+        <module>lsquic</module>
         <module>leptonica</module>
         <module>tesseract</module>
         <module>ale</module>
@@ -1547,6 +1554,7 @@
         <module>scipy</module>
         <module>gym</module>
         <module>llvm</module>
+        <module>lsquic</module>
         <module>libpostal</module>
         <module>leptonica</module>
         <module>tesseract</module>
@@ -1783,7 +1791,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><name>linux</name><arch>arm</arch></os>
+        <os>
+          <name>linux</name>
+          <arch>arm</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.linux-armhf>linux-armhf${javacpp.platform.extension}</javacpp.platform.linux-armhf>
@@ -1796,7 +1807,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><name>linux</name><arch>armhf</arch></os>
+        <os>
+          <name>linux</name>
+          <arch>armhf</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.linux-armhf>linux-armhf${javacpp.platform.extension}</javacpp.platform.linux-armhf>
@@ -1809,7 +1823,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><name>linux</name><arch>aarch64</arch></os>
+        <os>
+          <name>linux</name>
+          <arch>aarch64</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.linux-arm64>linux-arm64${javacpp.platform.extension}</javacpp.platform.linux-arm64>
@@ -1822,7 +1839,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><name>linux</name><arch>armv8</arch></os>
+        <os>
+          <name>linux</name>
+          <arch>armv8</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.linux-arm64>linux-arm64${javacpp.platform.extension}</javacpp.platform.linux-arm64>
@@ -1835,7 +1855,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><name>linux</name><arch>arm64</arch></os>
+        <os>
+          <name>linux</name>
+          <arch>arm64</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.linux-arm64>linux-arm64${javacpp.platform.extension}</javacpp.platform.linux-arm64>
@@ -1848,7 +1871,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><name>linux</name><arch>ppc64le</arch></os>
+        <os>
+          <name>linux</name>
+          <arch>ppc64le</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.linux-ppc64le>linux-ppc64le${javacpp.platform.extension}</javacpp.platform.linux-ppc64le>
@@ -1861,7 +1887,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><name>linux</name><arch>amd64</arch></os>
+        <os>
+          <name>linux</name>
+          <arch>amd64</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.linux-x86_64>linux-x86_64${javacpp.platform.extension}</javacpp.platform.linux-x86_64>
@@ -1874,7 +1903,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><name>linux</name><arch>x86-64</arch></os>
+        <os>
+          <name>linux</name>
+          <arch>x86-64</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.linux-x86_64>linux-x86_64${javacpp.platform.extension}</javacpp.platform.linux-x86_64>
@@ -1887,7 +1919,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><name>linux</name><arch>x86_64</arch></os>
+        <os>
+          <name>linux</name>
+          <arch>x86_64</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.linux-x86_64>linux-x86_64${javacpp.platform.extension}</javacpp.platform.linux-x86_64>
@@ -1900,7 +1935,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><name>mac os x</name><arch>amd64</arch></os>
+        <os>
+          <name>mac os x</name>
+          <arch>amd64</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.macosx-x86_64>macosx-x86_64${javacpp.platform.extension}</javacpp.platform.macosx-x86_64>
@@ -1913,7 +1951,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><name>mac os x</name><arch>x86-64</arch></os>
+        <os>
+          <name>mac os x</name>
+          <arch>x86-64</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.macosx-x86_64>macosx-x86_64${javacpp.platform.extension}</javacpp.platform.macosx-x86_64>
@@ -1926,7 +1967,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><name>mac os x</name><arch>x86_64</arch></os>
+        <os>
+          <name>mac os x</name>
+          <arch>x86_64</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.macosx-x86_64>macosx-x86_64${javacpp.platform.extension}</javacpp.platform.macosx-x86_64>
@@ -1939,7 +1983,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><family>windows</family><arch>amd64</arch></os>
+        <os>
+          <family>windows</family>
+          <arch>amd64</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.windows-x86_64>windows-x86_64${javacpp.platform.extension}</javacpp.platform.windows-x86_64>
@@ -1952,7 +1999,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><family>windows</family><arch>x86-64</arch></os>
+        <os>
+          <family>windows</family>
+          <arch>x86-64</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.windows-x86_64>windows-x86_64${javacpp.platform.extension}</javacpp.platform.windows-x86_64>
@@ -1965,7 +2015,10 @@
         <property>
           <name>javacpp.platform.host</name>
         </property>
-        <os><family>windows</family><arch>x86_64</arch></os>
+        <os>
+          <family>windows</family>
+          <arch>x86_64</arch>
+        </os>
       </activation>
       <properties>
         <javacpp.platform.windows-x86_64>windows-x86_64${javacpp.platform.extension}</javacpp.platform.windows-x86_64>
@@ -1976,7 +2029,9 @@
     <profile>
       <id>linux</id>
       <activation>
-        <os><name>linux</name></os>
+        <os>
+          <name>linux</name>
+        </os>
       </activation>
       <properties>
         <os.kernel>linux</os.kernel>
@@ -1986,7 +2041,9 @@
     <profile>
       <id>macosx</id>
       <activation>
-        <os><name>mac os x</name></os>
+        <os>
+          <name>mac os x</name>
+        </os>
       </activation>
       <properties>
         <os.kernel>darwin</os.kernel>
@@ -1996,7 +2053,9 @@
     <profile>
       <id>windows</id>
       <activation>
-        <os><family>windows</family></os>
+        <os>
+          <family>windows</family>
+        </os>
       </activation>
       <properties>
         <os.kernel>windows</os.kernel>
@@ -2006,7 +2065,9 @@
     <profile>
       <id>arm</id>
       <activation>
-        <os><arch>arm</arch></os>
+        <os>
+          <arch>arm</arch>
+        </os>
       </activation>
       <properties>
         <os.arch>armhf</os.arch>
@@ -2015,7 +2076,9 @@
     <profile>
       <id>aarch64</id>
       <activation>
-        <os><arch>aarch64</arch></os>
+        <os>
+          <arch>aarch64</arch>
+        </os>
       </activation>
       <properties>
         <os.arch>arm64</os.arch>
@@ -2024,7 +2087,9 @@
     <profile>
       <id>armv8</id>
       <activation>
-        <os><arch>armv8</arch></os>
+        <os>
+          <arch>armv8</arch>
+        </os>
       </activation>
       <properties>
         <os.arch>arm64</os.arch>
@@ -2033,7 +2098,9 @@
     <profile>
       <id>i386</id>
       <activation>
-        <os><arch>i386</arch></os>
+        <os>
+          <arch>i386</arch>
+        </os>
       </activation>
       <properties>
         <os.arch>x86</os.arch>
@@ -2042,7 +2109,9 @@
     <profile>
       <id>i486</id>
       <activation>
-        <os><arch>i486</arch></os>
+        <os>
+          <arch>i486</arch>
+        </os>
       </activation>
       <properties>
         <os.arch>x86</os.arch>
@@ -2051,7 +2120,9 @@
     <profile>
       <id>i586</id>
       <activation>
-        <os><arch>i586</arch></os>
+        <os>
+          <arch>i586</arch>
+        </os>
       </activation>
       <properties>
         <os.arch>x86</os.arch>
@@ -2060,7 +2131,9 @@
     <profile>
       <id>i686</id>
       <activation>
-        <os><arch>i686</arch></os>
+        <os>
+          <arch>i686</arch>
+        </os>
       </activation>
       <properties>
         <os.arch>x86</os.arch>
@@ -2069,7 +2142,9 @@
     <profile>
       <id>amd64</id>
       <activation>
-        <os><arch>amd64</arch></os>
+        <os>
+          <arch>amd64</arch>
+        </os>
       </activation>
       <properties>
         <os.arch>x86_64</os.arch>
@@ -2078,7 +2153,9 @@
     <profile>
       <id>x86-64</id>
       <activation>
-        <os><arch>x86-64</arch></os>
+        <os>
+          <arch>x86-64</arch>
+        </os>
       </activation>
       <properties>
         <os.arch>x86_64</os.arch>
